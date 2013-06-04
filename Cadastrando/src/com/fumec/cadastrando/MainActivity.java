@@ -61,6 +61,10 @@ public class MainActivity extends Activity {
         
         objListaPessoas.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> adapter, View view, int posicao, long id) {
+				//String variavelNome = "Joãozinho";
+				//Intent intent = new Intent(this, ActivitySecundaria.class);
+				//intent.putExtra("nome", variavelNome);
+				//startActivity(intent);
 			}
         	
         });
