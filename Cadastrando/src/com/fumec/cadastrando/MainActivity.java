@@ -3,6 +3,7 @@ package com.fumec.cadastrando;
 import java.util.ArrayList;
 
 import com.fumec.adapter.PessoaAdapter;
+import com.fumec.dal.SQLiteManager;
 import com.fumec.modelo.PessoaDTO;
 
 import android.os.Bundle;
@@ -26,17 +27,34 @@ public class MainActivity extends Activity {
 		
 		objListaPessoas = (ListView) findViewById(R.id.lstPessoas);
 		
+		PessoaDTO pessoa = new PessoaDTO();
+		pessoa.setNomePessoa("Raffael Patrício");
+		pessoa.setDataNascimentoPessoa("03/10/1986");
+		pessoa.setTelefonePessoa("31 86551022");
+		pessoa.setEnderecoPessoa("Rua");
+		pessoa.setNumeroPessoa("325 Casa A");
+		pessoa.setCidadePessoa("Belo Horizonte");
+		pessoa.setBairroPessoa("Ipanema");
+		pessoa.setCepPessoa("30870-010");
+		pessoa.setFotoPessoa("foto.png");
+		pessoa.setLongitude("123465");
+		pessoa.setLatitude("132465");
+		
+		SQLiteManager entry = new SQLiteManager(MainActivity.this);
+        entry.open();
+        entry.createEntryPessoa(pessoa);
+        entry.close();
+		
 		this.preencherListaPessoas();
 	}
 	
 	protected void preencherListaPessoas()
 	{
-		PessoaDTO pessoa1 = new PessoaDTO();
-		pessoa1.setNomePessoa("Raffael Patrício");
-		pessoa1.setTelefonePessoa("31 86551022");
-		
-		listaPessoas = new ArrayList<PessoaDTO>();
-		listaPessoas.add(pessoa1);
+		SQLiteManager info = new SQLiteManager(this);
+		 
+        info.open();
+        listaPessoas = info.getPessoas();
+        info.close();
 
         this.pessoaAdapter = new PessoaAdapter(this, R.layout.layout_celula_pessoa, listaPessoas);
         objListaPessoas.setAdapter(this.pessoaAdapter);

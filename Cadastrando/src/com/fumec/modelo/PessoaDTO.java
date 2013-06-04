@@ -1,11 +1,10 @@
 package com.fumec.modelo;
 
-import java.sql.Date;
-
 public class PessoaDTO {
 
+	private int idPessoa;
 	private String nomePessoa;
-	private Date dataNascimentoPessoa;
+	private String dataNascimentoPessoa;
 	private String telefonePessoa;
 	private String enderecoPessoa;
 	private String numeroPessoa;
@@ -13,19 +12,26 @@ public class PessoaDTO {
 	private String bairroPessoa;
 	private String cepPessoa;
 	private String fotoPessoa;
-	private String coordenadaXPessoa;
-	private String coordenadaYPessoa;
+	private String latitude;
+	private String longitude;
 	
+	
+	public int getIdPessoa() {
+		return idPessoa;
+	}
+	public void setIdPessoa(int idPessoa) {
+		this.idPessoa = idPessoa;
+	}
 	public String getNomePessoa() {
 		return nomePessoa;
 	}
 	public void setNomePessoa(String nomePessoa) {
 		this.nomePessoa = nomePessoa;
 	}
-	public Date getDataNascimentoPessoa() {
+	public String getDataNascimentoPessoa() {
 		return dataNascimentoPessoa;
 	}
-	public void setDataNascimentoPessoa(Date dataNascimentoPessoa) {
+	public void setDataNascimentoPessoa(String dataNascimentoPessoa) {
 		this.dataNascimentoPessoa = dataNascimentoPessoa;
 	}
 	public String getTelefonePessoa() {
@@ -70,17 +76,17 @@ public class PessoaDTO {
 	public void setFotoPessoa(String fotoPessoa) {
 		this.fotoPessoa = fotoPessoa;
 	}
-	public String getCoordenadaXPessoa() {
-		return coordenadaXPessoa;
+	public String getLatitude() {
+		return latitude;
 	}
-	public void setCoordenadaXPessoa(String coordenadaXPessoa) {
-		this.coordenadaXPessoa = coordenadaXPessoa;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
-	public String getCoordenadaYPessoa() {
-		return coordenadaYPessoa;
+	public String getLongitude() {
+		return longitude;
 	}
-	public void setCoordenadaYPessoa(String coordenadaYPessoa) {
-		this.coordenadaYPessoa = coordenadaYPessoa;
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 	
 	
