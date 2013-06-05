@@ -32,7 +32,7 @@ public final class R {
         public static final int edtCep=0x7f080010;
         public static final int edtCidade=0x7f08000c;
         public static final int edtEndereco=0x7f080008;
-        public static final int edtNomeEstabelecimento=0x7f080004;
+        public static final int edtNome=0x7f080004;
         public static final int edtNumero=0x7f08000a;
         public static final int edtTelefone=0x7f080006;
         public static final int imageView1=0x7f080002;
