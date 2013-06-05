@@ -16,5 +16,16 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="TextoDetalhe" parent="">
+        <item name="android:textColor">#22558B</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    
+    <style name="TextoSubTitulo" parent="">
+        <item name="android:textColor">#132E4B</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
 </resources>
