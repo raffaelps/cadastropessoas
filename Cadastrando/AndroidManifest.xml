@@ -24,6 +24,8 @@
         </activity>
         
         <activity android:name="com.fumec.cadastrando.DadosPessoaActivity"></activity>
+        <activity android:name="com.fumec.cadastrando.CadastroPessoaActivity"></activity>
+        
     </application>
 
 </manifest>

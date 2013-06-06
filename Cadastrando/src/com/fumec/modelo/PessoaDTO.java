@@ -4,7 +4,6 @@ public class PessoaDTO {
 
 	private int idPessoa;
 	private String nomePessoa;
-	private String dataNascimentoPessoa;
 	private String telefonePessoa;
 	private String enderecoPessoa;
 	private String numeroPessoa;
@@ -27,12 +26,6 @@ public class PessoaDTO {
 	}
 	public void setNomePessoa(String nomePessoa) {
 		this.nomePessoa = nomePessoa;
-	}
-	public String getDataNascimentoPessoa() {
-		return dataNascimentoPessoa;
-	}
-	public void setDataNascimentoPessoa(String dataNascimentoPessoa) {
-		this.dataNascimentoPessoa = dataNascimentoPessoa;
 	}
 	public String getTelefonePessoa() {
 		return telefonePessoa;

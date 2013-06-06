@@ -49,13 +49,13 @@ public class PessoaAdapter extends ArrayAdapter<PessoaDTO> {
                     
                     if (img != null)
                     {
-                    	if (o.getFotoPessoa() != "")
+                    	if (o.getFotoPessoa() != null)
                     	{
                     		img.setImageBitmap(BitmapFactory.decodeFile(o.getFotoPessoa()));
                     	}
                     	else
                     	{
-                    		//img.setImageResource(R.drawable.imageFileId);
+                    		img.setImageResource(R.drawable.person);
                     	}
                     }
             }

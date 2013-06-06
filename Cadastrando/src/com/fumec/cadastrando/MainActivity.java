@@ -8,7 +8,9 @@ import com.fumec.modelo.PessoaDTO;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,25 +28,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		objListaPessoas = (ListView) findViewById(R.id.lstPessoas);
-		
-		PessoaDTO pessoa = new PessoaDTO();
-		pessoa.setNomePessoa("Raffael Patrício");
-		pessoa.setDataNascimentoPessoa("03/10/1986");
-		pessoa.setTelefonePessoa("31 86551022");
-		pessoa.setEnderecoPessoa("Rua");
-		pessoa.setNumeroPessoa("325 Casa A");
-		pessoa.setCidadePessoa("Belo Horizonte");
-		pessoa.setBairroPessoa("Ipanema");
-		pessoa.setCepPessoa("30870-010");
-		pessoa.setFotoPessoa("foto.png");
-		pessoa.setLongitude("123465");
-		pessoa.setLatitude("132465");
-		
-		SQLiteManager entry = new SQLiteManager(MainActivity.this);
-        entry.open();
-        entry.createEntryPessoa(pessoa);
-        entry.close();
-		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		this.preencherListaPessoas();
 	}
 	
@@ -61,10 +49,12 @@ public class MainActivity extends Activity {
         
         objListaPessoas.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> adapter, View view, int posicao, long id) {
-				//String variavelNome = "Joãozinho";
-				//Intent intent = new Intent(this, ActivitySecundaria.class);
-				//intent.putExtra("nome", variavelNome);
-				//startActivity(intent);
+				
+				PessoaDTO pessoa = listaPessoas.get(posicao);
+				
+				Intent intent = new Intent(MainActivity.this, DadosPessoaActivity.class);
+				intent.putExtra("idPessoa", Integer.toString(pessoa.getIdPessoa()));
+				startActivity(intent);
 			}
         	
         });
@@ -75,6 +65,24 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		
+		int opcao = item.getItemId();
+		
+		switch (opcao){
+		case R.id.cadastrar_pessoa:
+			Intent intent_login = new Intent(this,CadastroPessoaActivity.class);
+			startActivity(intent_login);
+			break;
+		default:
+			break;
+		}
+		
+		return super.onOptionsItemSelected(item);
+		
 	}
 
 }

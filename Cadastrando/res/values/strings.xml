@@ -17,5 +17,7 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="cadastrar_foto">Foto</string>
     <string name="foto_pessoa">Foto</string>
+    
+    <string name="menu_cadastrar_pessoa">Cadastrar pessoa</string>
 
 </resources>

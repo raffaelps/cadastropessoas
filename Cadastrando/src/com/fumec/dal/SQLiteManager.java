@@ -15,11 +15,11 @@ public class SQLiteManager {
 
 	public static final String _ROWID  = "id";
     public static final String _NOME    = "nome";
-    public static final String _DATANASCIMENTO = "datanascimento";
     public static final String _ENDERECO = "endereco";
     public static final String _TELEFONE = "telefone";
     public static final String _NUMERO = "numero";
     public static final String _BAIRRO = "bairro";
+    public static final String _CIDADE = "cidade";
     public static final String _CEP = "cep";
     public static final String _NOMEFOTO = "nomefoto";
     public static final String _LATITUDE = "latitude";
@@ -27,7 +27,7 @@ public class SQLiteManager {
  
     public static final String BD_NOME  = "Pessoas";
     public static final String BD_TABLE = "tb_pessoa";
-    public static final int BD_VERSION  = 2;
+    public static final int BD_VERSION  = 1;
  
     private DbHelper nAjuda;
     private final Context nContext;
@@ -47,11 +47,11 @@ public class SQLiteManager {
                     "CREATE TABLE " + BD_TABLE + " (" +
                     _ROWID  + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     _NOME  + " TEXT NOT NULL, " +
-                    _DATANASCIMENTO  + " TEXT NOT NULL," +
                     _ENDERECO +	" TEXT NOT NULL," +
                     _TELEFONE +	" TEXT NOT NULL," +
                     _NUMERO + " TEXT NOT NULL," +
                     _BAIRRO + " TEXT NOT NULL," +
+                    _CIDADE + " TEXT NOT NULL," +
                     _CEP + " TEXT NOT NULL," +
                     _NOMEFOTO + " TEXT NULL," +
                     _LATITUDE + " TEXT NULL," +
@@ -85,13 +85,13 @@ public class SQLiteManager {
     public long createEntryPessoa(PessoaDTO pessoa) {
         ContentValues cv = new ContentValues();
         cv.put(_NOME, pessoa.getNomePessoa());
-        cv.put(_DATANASCIMENTO, pessoa.getDataNascimentoPessoa());
         cv.put(_ENDERECO, pessoa.getEnderecoPessoa());
         cv.put(_TELEFONE, pessoa.getTelefonePessoa());
         cv.put(_NUMERO, pessoa.getNumeroPessoa());
         cv.put(_BAIRRO, pessoa.getBairroPessoa());
+        cv.put(_CIDADE, pessoa.getCidadePessoa());
         cv.put(_CEP, pessoa.getCepPessoa());
-        cv.put(_NOMEFOTO, pessoa.getNomePessoa());
+        cv.put(_NOMEFOTO, pessoa.getFotoPessoa());
         cv.put(_LATITUDE, pessoa.getLatitude());
         cv.put(_LONGITUDE, pessoa.getLongitude());
         
@@ -100,8 +100,8 @@ public class SQLiteManager {
  
     public ArrayList<PessoaDTO> getPessoas() {
         // TODO Auto-generated method stub
-        String[] colunas = new String[]{ _ROWID, _NOME, _DATANASCIMENTO, _ENDERECO, _TELEFONE, _NUMERO, _BAIRRO, _CEP, _NOMEFOTO, _LATITUDE, _LONGITUDE };
-        Cursor c = nBaseDados.query(BD_TABLE, colunas, null, null, null, null, null);
+        String[] colunas = new String[]{ _ROWID, _NOME, _ENDERECO, _TELEFONE, _NUMERO, _BAIRRO, _CIDADE , _CEP, _NOMEFOTO, _LATITUDE, _LONGITUDE };
+        Cursor c = nBaseDados.query(BD_TABLE, colunas, null, null, null, null, _NOME + " ASC");
  
         ArrayList<PessoaDTO> retorno = new ArrayList<PessoaDTO>();
         
@@ -113,11 +113,11 @@ public class SQLiteManager {
         	
             pessoa.setIdPessoa(c.getInt(c.getColumnIndex(_ROWID)));
             pessoa.setNomePessoa(c.getString(c.getColumnIndex(_NOME)));
-            pessoa.setDataNascimentoPessoa(c.getString(c.getColumnIndex(_DATANASCIMENTO)));
             pessoa.setEnderecoPessoa(c.getString(c.getColumnIndex(_ENDERECO)));
             pessoa.setTelefonePessoa(c.getString(c.getColumnIndex(_TELEFONE)));
             pessoa.setNumeroPessoa(c.getString(c.getColumnIndex(_NUMERO)));
             pessoa.setBairroPessoa(c.getString(c.getColumnIndex(_BAIRRO)));
+            pessoa.setCidadePessoa(c.getString(c.getColumnIndex(_CIDADE)));
             pessoa.setCepPessoa(c.getString(c.getColumnIndex(_CEP)));
             pessoa.setFotoPessoa(c.getString(c.getColumnIndex(_NOMEFOTO)));
             pessoa.setLatitude(c.getString(c.getColumnIndex(_LATITUDE)));
@@ -132,6 +132,28 @@ public class SQLiteManager {
     
     public PessoaDTO getPessoa(int idPessoa)
     {
-    	return new PessoaDTO();
+    	// TODO Auto-generated method stub
+        String[] colunas = new String[]{ _ROWID, _NOME, _ENDERECO, _TELEFONE, _NUMERO, _BAIRRO, _CIDADE , _CEP, _NOMEFOTO, _LATITUDE, _LONGITUDE };
+        Cursor c = nBaseDados.query(BD_TABLE, colunas, _ROWID + " = " + idPessoa, null, null, null, _NOME + " ASC");
+ 
+        PessoaDTO pessoa = new PessoaDTO();
+ 
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+        	
+            pessoa.setIdPessoa(c.getInt(c.getColumnIndex(_ROWID)));
+            pessoa.setNomePessoa(c.getString(c.getColumnIndex(_NOME)));
+            pessoa.setEnderecoPessoa(c.getString(c.getColumnIndex(_ENDERECO)));
+            pessoa.setTelefonePessoa(c.getString(c.getColumnIndex(_TELEFONE)));
+            pessoa.setNumeroPessoa(c.getString(c.getColumnIndex(_NUMERO)));
+            pessoa.setBairroPessoa(c.getString(c.getColumnIndex(_BAIRRO)));
+            pessoa.setCidadePessoa(c.getString(c.getColumnIndex(_CIDADE)));
+            pessoa.setCepPessoa(c.getString(c.getColumnIndex(_CEP)));
+            pessoa.setFotoPessoa(c.getString(c.getColumnIndex(_NOMEFOTO)));
+            pessoa.setLatitude(c.getString(c.getColumnIndex(_LATITUDE)));
+            pessoa.setLongitude(c.getString(c.getColumnIndex(_LONGITUDE)));
+
+        }
+        
+        return pessoa;
     }
 }
