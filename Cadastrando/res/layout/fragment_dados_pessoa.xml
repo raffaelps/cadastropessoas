@@ -6,10 +6,10 @@
     
     <TextView
 	        android:id="@+id/txvNome"
-	        android:layout_width="wrap_content"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="10dip"
-	        android:layout_gravity="center"
+	        android:gravity="center"
 	        android:text="@string/nome_pessoa"
 	        android:textAppearance="?android:attr/textAppearanceMedium" 
 	        style="@style/TextoSubTitulo"
@@ -22,41 +22,53 @@
         >
 		    <ImageView
 				        android:id="@+id/imagemPessoa"
-				        android:layout_width="0dip"
-				        android:layout_height="100dip"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
 				        android:src="@drawable/person" 
 				        android:contentDescription="@string/foto_pessoa"
 				        android:onClick="cadastrarFoto"
-				        android:layout_weight="1"/>
+				        android:paddingLeft="10dip"
+				        android:paddingRight="10dip"/>
 		    
 		    <LinearLayout 
-		        android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
 		        android:orientation="vertical"
-		        android:layout_weight="1"
-		        android:layout_gravity="top"
 		        >
 		        
 		        <TextView
-			        android:id="@+id/txvTelefone"
-			        android:layout_width="wrap_content"
+			        android:id="@+id/txvLblTelefone"
+			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
-			        android:layout_marginTop="10dip"
+			        android:text="@string/telefone_pessoa"
+			        android:textAppearance="?android:attr/textAppearanceSmall" 
+			        style="@style/LabelDetalhe"/>
+		        
+		        <TextView
+			        android:id="@+id/txvTelefone"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
 			        android:text="@string/telefone_pessoa"
 			        android:textAppearance="?android:attr/textAppearanceMedium" 
 			        style="@style/TextoDetalhe"/>
 		        
 		        <TextView
-			        android:id="@+id/txvEndereco"
-			        android:layout_width="wrap_content"
+			        android:id="@+id/txvLblEndereco"
+			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
-			        android:layout_marginTop="10dip"
+			        android:text="@string/endereco_pessoa"
+			        android:textAppearance="?android:attr/textAppearanceSmall"
+			        style="@style/LabelDetalhe"/>
+		        
+		        <TextView
+			        android:id="@+id/txvEndereco"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
 			        android:text="@string/endereco_pessoa"
 			        android:textAppearance="?android:attr/textAppearanceMedium" 
 			        style="@style/TextoDetalhe"/>
-		        
-		    </LinearLayout>
-    
+	
+		        </LinearLayout>	        
     </LinearLayout>
     
 </LinearLayout>

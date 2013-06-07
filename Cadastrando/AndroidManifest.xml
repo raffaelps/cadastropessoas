@@ -7,6 +7,12 @@
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="17" />
+    
+    <!-- Permissão para acessar a área de memória externa -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+    <!-- Permissão para acessar a câmera diretamente -->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"

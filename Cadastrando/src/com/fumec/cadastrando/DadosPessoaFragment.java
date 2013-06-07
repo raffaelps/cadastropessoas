@@ -35,7 +35,7 @@ public class DadosPessoaFragment extends Fragment {
 
 	public void setDadosPessoa(PessoaDTO pessoa) {
 		txvNome.setText(pessoa.getNomePessoa());
-		txvEndereço.setText(pessoa.getEnderecoPessoa());
+		txvEndereço.setText(pessoa.getEnderecoPessoa() + ", " + pessoa.getNumeroPessoa() + ", " + pessoa.getBairroPessoa() + ", " + pessoa.getCepPessoa() + " - " + pessoa.getCidadePessoa());
 		txvTelefone.setText(pessoa.getTelefonePessoa());
 		
 		if (pessoa.getFotoPessoa() != null)
