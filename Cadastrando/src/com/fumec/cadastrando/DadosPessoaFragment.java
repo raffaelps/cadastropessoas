@@ -16,9 +16,21 @@ import android.widget.TextView;
 public class DadosPessoaFragment extends Fragment {
 
 	private TextView txvNome;
-	private TextView txvEndereço;
+	private TextView txvEndereco;
 	private TextView txvTelefone;
 	private ImageView imagemPessoa;
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,7 +38,7 @@ public class DadosPessoaFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_dados_pessoa, container, false);
 		
 		txvNome = (TextView) view.findViewById(R.id.txvNome);
-		txvEndereço = (TextView) view.findViewById(R.id.txvEndereco);
+		txvEndereco = (TextView) view.findViewById(R.id.txvEndereco);
 		txvTelefone = (TextView) view.findViewById(R.id.txvTelefone);
 		imagemPessoa = (ImageView) view.findViewById(R.id.imagemPessoa);
 		
@@ -35,7 +47,7 @@ public class DadosPessoaFragment extends Fragment {
 
 	public void setDadosPessoa(PessoaDTO pessoa) {
 		txvNome.setText(pessoa.getNomePessoa());
-		txvEndereço.setText(pessoa.getEnderecoPessoa() + ", " + pessoa.getNumeroPessoa() + ", " + pessoa.getBairroPessoa() + ", " + pessoa.getCepPessoa() + " - " + pessoa.getCidadePessoa());
+		txvEndereco.setText(pessoa.getEnderecoPessoa() + ", " + pessoa.getNumeroPessoa() + ", " + pessoa.getBairroPessoa() + ", " + pessoa.getCepPessoa() + " - " + pessoa.getCidadePessoa());
 		txvTelefone.setText(pessoa.getTelefonePessoa());
 		
 		if (pessoa.getFotoPessoa() != null)

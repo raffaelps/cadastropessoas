@@ -6,6 +6,7 @@ import com.fumec.cadastrando.R;
 import com.fumec.modelo.PessoaDTO;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,10 @@ public class PessoaAdapter extends ArrayAdapter<PessoaDTO> {
                     {
                     	if (o.getFotoPessoa() != null)
                     	{
-                    		img.setImageBitmap(BitmapFactory.decodeFile(o.getFotoPessoa()));
+        					Bitmap myBitmap = BitmapFactory.decodeFile(o.getFotoPessoa());
+                    		img.setImageBitmap(myBitmap);
+                    		
+                    		myBitmap = null;
                     	}
                     	else
                     	{
@@ -59,6 +63,7 @@ public class PessoaAdapter extends ArrayAdapter<PessoaDTO> {
                     	}
                     }
             }
+            
             return v;
     }
 

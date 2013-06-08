@@ -5,11 +5,8 @@ import com.fumec.dal.SQLiteManager;
 import com.fumec.modelo.PessoaDTO;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,6 +18,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 
@@ -35,15 +33,13 @@ public class CadastroPessoaActivity  extends Activity {
 	private EditText edtCep;
 	
 	private ImageView imagemPessoa;
-	private File imageFile;
 	private String nomeImagemPessoa;
 	
 	/**
-	* Código de requisição para poder identificar quando a activity da câmera é finalizada
+	* Codigo de requisicao para poder identificar quando a activity da camera e finalizada
 	 */
 	private static final int REQUEST_PICTURE = 1000;
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,17 +54,6 @@ public class CadastroPessoaActivity  extends Activity {
 		edtCep = (EditText) findViewById(R.id.edtCep);
 		
 		imagemPessoa = (ImageView) findViewById(R.id.imagemPessoa);
-		
-		// Obtém o local onde as fotos são armazenadas na memória externa do dispositivo
-		File picsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		
-		//Define o local completo onde a foto será armazenada (diretório + arquivo)
-		Date now = new Date();
-		nomeImagemPessoa = Integer.toString(now.getDay()) + Integer.toString(now.getMonth()) + Integer.toString(now.getYear());
-		nomeImagemPessoa += Integer.toString(now.getHours()) + Integer.toString(now.getMinutes()) + Integer.toString(now.getSeconds());
-		nomeImagemPessoa += ".jpg";
-		
-		this.imageFile = new File(picsDir, nomeImagemPessoa);
 	}
 	
 	@Override
@@ -80,9 +65,6 @@ public class CadastroPessoaActivity  extends Activity {
 	
 	public void cadastrarPessoa(View view)
 	{
-		ProgressDialog dialog = ProgressDialog.show(CadastroPessoaActivity.this, "", 
-                "Gravando dados...", true);
-		
 		PessoaDTO pessoa = new PessoaDTO();
 		pessoa.setNomePessoa(edtNome.getText().toString());
 		pessoa.setTelefonePessoa(edtTelefone.getText().toString());
@@ -100,8 +82,6 @@ public class CadastroPessoaActivity  extends Activity {
         long retorno = entry.createEntryPessoa(pessoa);
         entry.close();
         
-        dialog.dismiss();
-        
         if (retorno == -1) 
         {
         	Toast.makeText(getApplicationContext(), "Erro ao cadastrar pessoa.", Toast.LENGTH_SHORT).show();
@@ -113,44 +93,54 @@ public class CadastroPessoaActivity  extends Activity {
 	}
 	
 	/**
-	 * Método que tira uma foto
+	 * Metodo que tira uma foto
 	 * @param v
 	 */
 	public void cadastrarFoto(View v) {
-		// Cria uma intent que será usada para abrir a aplicação nativa de câmera
+		
+		// Cria uma intent que sera usada para abrir a aplicacao nativa de camera
 		Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		
-		// Indica na intent o local onde a foto tirada deve ser armazenada
-		i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-		
-		// Abre a aplicação de câmera
+
+		// Abre a aplicacao de camera
 		startActivityForResult(i, REQUEST_PICTURE);
 	}
 	
 	/**
-	 * Método chamado quando a aplicação nativa da câmera é finalizada
+	 * Metodo chamado quando a aplicacao nativa da camera e finalizada
 	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		
-		// Verifica o código de requisição e se o resultado é OK (outro resultado indica que
-		// o usuário cancelou a tirada da foto)
-		
-		if (requestCode == REQUEST_PICTURE && resultCode == RESULT_OK) {
+		if (requestCode == REQUEST_PICTURE && resultCode == Activity.RESULT_OK) {
+			
 			
 			FileInputStream fis = null;
 			
 			try {
 				try {
-					// Cria um FileInputStream para ler a foto tirada pela câmera
-					fis = new FileInputStream(imageFile);
 					
-					// Converte a stream em um objeto Bitmap
-					Bitmap picture = BitmapFactory.decodeStream(fis);
+					//Define o nome da imagem
+					Date now = new Date();
+					nomeImagemPessoa = Integer.toString(now.getDay()) + Integer.toString(now.getMonth()) + Integer.toString(now.getYear());
+					nomeImagemPessoa += Integer.toString(now.getHours()) + Integer.toString(now.getMinutes()) + Integer.toString(now.getSeconds());
+					nomeImagemPessoa += ".jpg";
 					
-					// Exibe o bitmap na view, para que o usuário veja a foto tirada
-					imagemPessoa.setImageBitmap(picture);
+					File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+					File imgFile = new  File(dir.toString() + "/" + nomeImagemPessoa);	
+
+					Bitmap image = (Bitmap) data.getExtras().get("data");
+					
+					FileOutputStream fOut = new FileOutputStream(imgFile);
+					image.compress(Bitmap.CompressFormat.PNG, 50, fOut);
+					fOut.flush();
+					fOut.close();
+					
+			        imagemPessoa.setImageBitmap(image);
+			        
+			        nomeImagemPessoa = imgFile.getAbsolutePath();
+			        
 				} finally {
 					if (fis != null) {
 						fis.close();
