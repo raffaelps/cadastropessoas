@@ -1,11 +1,18 @@
 package com.fumec.cadastrando;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
 import com.fumec.dal.SQLiteManager;
 import com.fumec.modelo.PessoaDTO;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -15,13 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
-
-public class CadastroPessoaActivity  extends Activity {
+public class EditarPessoaActivity extends Activity{
 
 	private EditText edtNome;
 	private EditText edtTelefone;
@@ -34,6 +35,8 @@ public class CadastroPessoaActivity  extends Activity {
 	private ImageView imagemPessoa;
 	private String nomeImagemPessoa;
 	
+	private PessoaDTO pessoa;
+	
 	/**
 	* Codigo de requisicao para poder identificar quando a activity da camera e finalizada
 	 */
@@ -42,7 +45,7 @@ public class CadastroPessoaActivity  extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cadastro_pessoa);
+		setContentView(R.layout.activity_editar_cadastro_pessoa);
 		
 		edtNome = (EditText) findViewById(R.id.edtNome);
 		edtTelefone = (EditText) findViewById(R.id.edtTelefone);
@@ -53,6 +56,37 @@ public class CadastroPessoaActivity  extends Activity {
 		edtCep = (EditText) findViewById(R.id.edtCep);
 		
 		imagemPessoa = (ImageView) findViewById(R.id.imagemPessoa);
+		
+		this.preencherDadosPessoa();
+	}
+	
+	public void preencherDadosPessoa()
+	{
+		Bundle extras = getIntent().getExtras();
+	    if (extras != null)
+	    {
+	    	String idPessoa = extras.getString("idPessoa");
+	        
+	        SQLiteManager entry = new SQLiteManager(EditarPessoaActivity.this);
+	        entry.open();
+	        pessoa = entry.getPessoa(Integer.parseInt(idPessoa));
+	        entry.close();
+	        
+	        if (pessoa != null)
+    		{
+	        	edtNome.setText(pessoa.getNomePessoa());
+	        	edtTelefone.setText(pessoa.getTelefonePessoa());
+	        	edtEndereco.setText(pessoa.getEnderecoPessoa());
+	        	edtNumero.setText(pessoa.getNumeroPessoa());
+	        	edtCidade.setText(pessoa.getCidadePessoa());
+	        	edtBairro.setText(pessoa.getBairroPessoa());
+	        	edtCep.setText(pessoa.getCepPessoa());
+	        	
+	        	Bitmap myBitmap = BitmapFactory.decodeFile(pessoa.getFotoPessoa());
+	        	imagemPessoa.setImageBitmap(myBitmap);
+	        	nomeImagemPessoa = pessoa.getFotoPessoa();
+    		}
+	    }
 	}
 	
 	@Override
@@ -64,7 +98,6 @@ public class CadastroPessoaActivity  extends Activity {
 	
 	public void cadastrarPessoa(View view)
 	{
-		PessoaDTO pessoa = new PessoaDTO();
 		pessoa.setNomePessoa(edtNome.getText().toString());
 		pessoa.setTelefonePessoa(edtTelefone.getText().toString());
 		pessoa.setEnderecoPessoa(edtEndereco.getText().toString());
@@ -80,22 +113,41 @@ public class CadastroPessoaActivity  extends Activity {
 		}
 		else
 		{
-			SQLiteManager entry = new SQLiteManager(CadastroPessoaActivity.this);
+			SQLiteManager entry = new SQLiteManager(EditarPessoaActivity.this);
 	        entry.open();
-	        long retorno = entry.createEntryPessoa(pessoa);
+	        long retorno = entry.updateEntryPessoa(pessoa);
 	        entry.close();
 	        
 	        if (retorno == -1) 
 	        {
-	        	Toast.makeText(getApplicationContext(), "Erro ao cadastrar pessoa.", Toast.LENGTH_SHORT).show();
+	        	Toast.makeText(getApplicationContext(), "Erro ao atualizar pessoa.", Toast.LENGTH_SHORT).show();
 	        }
 	        else
 	        {
-	        	Toast.makeText(getApplicationContext(), "Pessoa cadastrada com sucesso.", Toast.LENGTH_SHORT).show();
+	        	Toast.makeText(getApplicationContext(), "Pessoa atualizada com sucesso.", Toast.LENGTH_SHORT).show();
 	        	super.onBackPressed();
 	        }
 		}
 	}
+	
+	public void excluirPessoa(View view)
+	{
+		SQLiteManager entry = new SQLiteManager(EditarPessoaActivity.this);
+        entry.open();
+        long retorno = entry.deleteEntryPessoa(pessoa);
+        entry.close();
+        
+        if (retorno == -1) 
+        {
+        	Toast.makeText(getApplicationContext(), "Erro ao excluir pessoa.", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+        	Toast.makeText(getApplicationContext(), "Pessoa excluida com sucesso.", Toast.LENGTH_SHORT).show();
+        	super.onBackPressed();
+        }
+	}
+	
 	
 	/**
 	 * Metodo que tira uma foto
@@ -142,7 +194,6 @@ public class CadastroPessoaActivity  extends Activity {
 					fOut.close();
 					
 			        imagemPessoa.setImageBitmap(image);
-			        
 			        nomeImagemPessoa = imgFile.getAbsolutePath();
 			        
 				} finally {

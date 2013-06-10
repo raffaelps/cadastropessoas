@@ -20,7 +20,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-		    <ImageView
+	        <RelativeLayout
+	        android:id="@+id/relative"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" >
+	
+	        <ImageView
 				        android:id="@+id/imagemPessoa"
 				        android:layout_width="wrap_content"
 				        android:layout_height="wrap_content"
@@ -29,7 +34,20 @@
 				        android:onClick="cadastrarFoto"
 				        android:paddingLeft="10dip"
 				        android:paddingRight="10dip"/>
-		    
+	
+	        <TextView
+	            android:id="@+id/textLabel"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/imagemPessoa"
+	            android:layout_centerInParent="true"
+	            android:singleLine="true"
+	            android:text="@string/editar_foto"
+	            android:textSize="12sp"
+				android:onClick="cadastrarFoto"
+				android:clickable="true"/>
+	    	</RelativeLayout>
+	    	
 		    <LinearLayout 
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"

@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     
     <string name="tituloCadastroPessoa">Cadastro pessoa</string>
+    <string name="tituloEditarPessoa">Editar pessoa</string>
     <string name="nome_pessoa">Nome</string>
     <string name="telefone_pessoa">Telefone</string>
     <string name="endereco_pessoa">Endereço</string>
@@ -15,9 +16,17 @@
     <string name="cep_pessoa">CEP</string>
     
     <string name="cadastrar">Cadastrar</string>
+    <string name="salvar">Salvar</string>
+    <string name="excluir">Excluir</string>
     <string name="cadastrar_foto">Foto</string>
     <string name="foto_pessoa">Foto</string>
     
+    <string name="cadastrar_foto">Cadastrar foto</string>
+    <string name="editar_foto">Editar foto</string>
+    
     <string name="menu_cadastrar_pessoa">Cadastrar pessoa</string>
-
+    <string name="menu_editar_pessoa">Editar pessoa</string>
+    <string name="menu_exportar_pessoa">Exportar pessoa</string>
+    <string name="menu_exportar_pessoas">Exportar pessoas</string>
+    
 </resources>

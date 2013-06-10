@@ -97,6 +97,26 @@ public class SQLiteManager {
         
         return nBaseDados.insert(BD_TABLE, null, cv);
     }
+    
+    public long updateEntryPessoa(PessoaDTO pessoa) {
+        ContentValues cv = new ContentValues();
+        cv.put(_NOME, pessoa.getNomePessoa());
+        cv.put(_ENDERECO, pessoa.getEnderecoPessoa());
+        cv.put(_TELEFONE, pessoa.getTelefonePessoa());
+        cv.put(_NUMERO, pessoa.getNumeroPessoa());
+        cv.put(_BAIRRO, pessoa.getBairroPessoa());
+        cv.put(_CIDADE, pessoa.getCidadePessoa());
+        cv.put(_CEP, pessoa.getCepPessoa());
+        cv.put(_NOMEFOTO, pessoa.getFotoPessoa());
+        cv.put(_LATITUDE, pessoa.getLatitude());
+        cv.put(_LONGITUDE, pessoa.getLongitude());
+        
+        return nBaseDados.update(BD_TABLE, cv, _ROWID + " = " + pessoa.getIdPessoa(), null);
+    }
+    
+    public long deleteEntryPessoa(PessoaDTO pessoa) {
+        return nBaseDados.delete(BD_TABLE, _ROWID + " = " + pessoa.getIdPessoa(),null);
+    }
  
     public ArrayList<PessoaDTO> getPessoas() {
         // TODO Auto-generated method stub

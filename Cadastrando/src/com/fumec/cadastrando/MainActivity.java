@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.fumec.adapter.PessoaAdapter;
 import com.fumec.dal.SQLiteManager;
 import com.fumec.modelo.PessoaDTO;
+import com.fumec.util.Util;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MainActivity extends Activity {
@@ -76,6 +78,18 @@ public class MainActivity extends Activity {
 		case R.id.cadastrar_pessoa:
 			Intent intent_login = new Intent(this,CadastroPessoaActivity.class);
 			startActivity(intent_login);
+			break;
+		case R.id.exportar_pessoas:
+			
+			if (Util.exportarPessoasJson(listaPessoas))
+			{
+				Toast.makeText(getApplicationContext(), "Pessoas exportadas com sucesso.", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), "Erro ao exportar pessoas.", Toast.LENGTH_SHORT).show();
+			}
+			
 			break;
 		default:
 			break;

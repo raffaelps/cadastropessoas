@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" 
         android:layout_marginBottom="1dip"
         android:layout_marginTop="5dip"
-        android:text="@string/tituloCadastroPessoa"
+        android:text="@string/tituloEditarPessoa"
         style="@style/TextoSubTitulo"/>
 
     <RelativeLayout
@@ -44,7 +44,7 @@
 	            android:layout_below="@id/imagemPessoa"
 	            android:layout_centerInParent="true"
 	            android:singleLine="true"
-	            android:text="@string/cadastrar_foto"
+	            android:text="@string/editar_foto"
 	            android:textSize="12sp"
 				android:onClick="cadastrarFoto"
 				android:clickable="true"/>
@@ -160,11 +160,21 @@
          android:layout_width="match_parent"
          android:layout_height="0dip"
          android:layout_weight="1"
-         android:text="@string/cadastrar"
+         android:text="@string/salvar"
          android:onClick="cadastrarPessoa"
+         style="@style/btnStyleBlackpearl"
+         android:layout_marginTop="10dp"/>
+    
+    <Button
+         android:id="@+id/btnExcluirPessoa"
+         android:layout_width="match_parent"
+         android:layout_height="0dip"
+         android:layout_weight="1"
+         android:text="@string/excluir"
+         android:onClick="excluirPessoa"
+         style="@style/btnStyleOrange"
          android:layout_marginTop="10dp"
-         android:layout_marginBottom="10dp"
-         style="@style/btnStyleBlackpearl"/>
+         android:layout_marginBottom="10dp"/>
     
 </LinearLayout>
 
